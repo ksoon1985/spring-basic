@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient {
 
     private String url;
 
@@ -35,17 +35,14 @@ public class NetworkClient implements InitializingBean, DisposableBean {
         System.out.println("close : "+url);
     }
 
-    // 의존 관계 끝나면
-    // 초기화 메서드 호출
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    public void init(){
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
-    // 빈 이 소멸될 때 호출
-    @Override
-    public void destroy() throws Exception {
+    public void close(){
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 
